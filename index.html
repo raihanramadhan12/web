@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bintang Coding Academy - Desktop (Pink Theme with WhatsApp)</title>
+  <style>
+    /* Reset & basics */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #d6336c, #f8a5c2);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header {
+      background: rgba(0,0,0,0.35);
+      padding: 25px 40px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 2.5rem;
+      letter-spacing: 2.5px;
+      text-shadow: 1.5px 1.5px 6px rgba(0,0,0,0.4);
+      user-select:none;
+    }
+    nav {
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 15px 0;
+      user-select:none;
+    }
+    nav button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 12px 22px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      user-select:none;
+    }
+    nav button:hover, nav button.active {
+      background: rgba(255, 192, 203, 0.35);
+      box-shadow: 0 0 12px #ff6f91aa;
+    }
+    main {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 40px 60px;
+      background: rgba(255, 192, 203, 0.15);
+      border-radius: 20px;
+      margin: 20px;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.12);
+      user-select:none;
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-weight: 900;
+      font-size: 2rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      user-select:none;
+    }
+    h3 {
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      user-select:none;
+    }
+    ul {
+      list-style: none;
+      padding-left: 1.2em;
+      line-height: 1.6em;
+      font-size: 1.1rem;
+      user-select:none;
+      color: #eee;
+    }
+    ul li::before {
+      content: "★ ";
+      color: #ff6f91;
+      font-weight: bold;
+    }
+    .profile-info {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      user-select:none;
+      max-width: 900px;
+    }
+    .profile-info a {
+      color: #ff6f91;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .profile-info a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      font-size: 1rem;
+      padding: 15px 0;
+      background: rgba(0,0,0,0.2);
+      color: #ffe6f0;
+      font-style: italic;
+      user-select:none;
+    }
+    #login-status {
+      margin-top: 18px;
+      font-size: 1rem;
+      text-align: center;
+      color: #fff;
+      user-select:none;
+    }
+    #g-signin2 {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    /* Scrollbar for main */
+    main::-webkit-scrollbar {
+      width: 10px;
+    }
+    main::-webkit-scrollbar-thumb {
+      background: #ff6f91;
+      border-radius: 5px;
+    }
+    main::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    /* WhatsApp bubble styles */
+    .whatsapp-bubble {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background-color: #25d366;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    .whatsapp-bubble:hover {
+      background-color: #1ebe5a;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.8);
+    }
+    .whatsapp-bubble svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+    @media (max-width: 900px) {
+      body {
+        max-width: 100vw;
+        height: 100vh;
+      }
+      main {
+        margin: 10px;
+        padding: 20px 30px;
+        border-radius: 12px;
+      }
+      .whatsapp-bubble {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+      }
+      .whatsapp-bubble svg {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  </style>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <header>Bintang Coding Academy</header>
+  <nav>
+    <button id="btn-home" class="active" aria-label="Home section">Home</button>
+    <button id="btn-classes" aria-label="Classes section">Classes</button>
+    <button id="btn-profile" aria-label="Profile section">Profile</button>
+    <button id="btn-login" aria-label="Login section">Login</button>
+  </nav>
+  <main id="content" tabindex="0" aria-live="polite" role="main">
+    <section id="home-section">
+      <h2>Welcome to Bintang Coding Academy</h2>
+      <p style="font-size:1.25rem; max-width: 900px; margin-bottom: 35px; user-select:none;">
+        Your gateway to mastering programming. We offer specialized coding lessons tailored for both adults and children,
+        empowering skills for today's digital world. Join us and start your coding journey to unlock new opportunities!
+      </p>
+    </section>
+    <section id="classes-section" class="hidden" style="display:none;">
+      <h2>Our Classes</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 60px; max-width: 1000px;">
+        <div style="flex: 1 1 400px;">
+          <h3>Adult Coding Classes</h3>
+          <ul>
+            <li>Web Development (HTML, CSS, JavaScript)</li>
+            <li>Python Programming</li>
+            <li>Mobile App Development</li>
+            <li>Data Science &amp; Machine Learning</li>
+            <li>Game Development</li>
+          </ul>
+        </div>
+        <div style="flex: 1 1 400px;">
+          <h3>Kids Coding Classes</h3>
+          <ul>
+            <li>Scratch Programming</li>
+            <li>Block-Based Coding</li>
+            <li>Robotics for Beginners</li>
+            <li>Python Fundamentals for Kids</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="profile-section" class="hidden" style="display:none;">
+      <h2>Profile</h2>
+      <div class="profile-info" style="max-width: 900px;">
+        <p>Contact Phone: <a href="tel:+6285814558858" title="Call Bintang Coding Academy">085814558858</a></p>
+        <h3>About the Owner</h3>
+        <p>Raihan is a programmer and teacher as well as the owner of Bintang Coding Academy.</p>
+        <p>© 2024 Raihan Ramadhan. All rights reserved.</p>
+      </div>
+    </section>
+    <section id="login-section" class="hidden" style="display:none;">
+      <h2>Login with Gmail</h2>
+      <div id="g-signin2" aria-label="Google Sign-in button"></div>
+      <div id="login-status">Please sign in using your Google account</div>
+    </section>
+  </main>
+  <footer>
+    Bintang Coding Academy &mdash; Empowering Your Coding Journey
+  </footer>
+
+  <a class="whatsapp-bubble" href="https://wa.me/6285814558858" target="_blank" aria-label="Chat with us on WhatsApp" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.52 3.48A11.919 11.919 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.561 4.24 1.623 6.063L0 24l5.897-1.573A11.941 11.941 0 0012 24c6.627 0 12-5.373 12-12 0-3.195-1.246-6.193-3.48-8.52zM12 21.75c-1.974 0-3.799-.635-5.26-1.7l-.376-.28-3.498.933.933-3.504-.29-.374A8.041 8.041 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8zm4.509-5.684l-2.18-.987a.673.673 0 00-.618.1l-1.027.837a6.71 6.71 0 01-3.147-3.437l.824-1.05a.676.676 0 00.102-.619l-.991-2.18a.673.673 0 00-.83-.393l-1.783.446a.675.675 0 00-.49.661c0 2.47 2.006 5.029 4.581 6.261a4.253 4.253 0 002.836.28 1.011 1.011 0 00.591-.385l1.265-1.56a.672.672 0 00-.395-.8z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Navigation tab functionality
+    const buttons = document.querySelectorAll('nav button');
+    const sections = {
+      "btn-home": "home-section",
+      "btn-classes": "classes-section",
+      "btn-profile": "profile-section",
+      "btn-login": "login-section"
+    };
+
+    function showSection(buttonId) {
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById(buttonId).classList.add('active');
+      for (const key in sections) {
+        const sec = document.getElementById(sections[key]);
+        if (key === buttonId) {
+          sec.style.display = 'block';
+          sec.classList.remove('hidden');
+        } else {
+          sec.style.display = 'none';
+          sec.classList.add('hidden');
+        }
+      }
+      // Focus on main content for accessibility 
+      document.getElementById('content').focus();
+    }
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => showSection(btn.id));
+    });
+
+    // Google Sign-In callback
+    function handleCredentialResponse(response) {
+      const decoded = parseJwt(response.credential);
+      const statusEl = document.getElementById('login-status');
+      statusEl.textContent = `Signed in as: ${decoded.name} (${decoded.email})`;
+      // Hide sign-in button after login
+      document.getElementById('g-signin2').style.display = 'none';
+    }
+
+    // Decode JWT token to extract user info
+    function parseJwt(token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+
+    window.onload = () => {
+      google.accounts.id.initialize({
+        client_id: 'REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById('g-signin2'),
+        { theme: 'outline', size: 'large', width: 280 }
+      );
+      google.accounts.id.prompt();
+    };
+  </script>
+</body>
+</html>
+</content>
+</create_file>
+
+
